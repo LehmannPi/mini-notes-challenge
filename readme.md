@@ -1,5 +1,7 @@
 # README — Mini Notes App (Effect + React + Drizzle)
 
+Instruções sobre [como rodar localmente](#-como-rodar-localmente) logo após texto introdutório do desafio.
+
 ## 🎯 Objetivo
 
 Construir um aplicativo web simples de **notas** que permita criar, listar, atualizar e excluir registros.
@@ -99,3 +101,66 @@ O desafio avalia sua capacidade de trabalhar com nosso stack principal (**Effect
 - TanStack Query e gerenciamento de cache
 - Testes e2e (Playwright)
 - Deploy funcional (Vercel/Render/Railway)
+
+---
+
+## 🚀 Como Rodar Localmente
+
+### 1) Backend (API)
+
+Requisitos: Node 20+, Bun, Postgres (local via Docker) ou Neon.
+
+Configuração `.env` em `api/` (exemplo):
+
+```env
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/notes
+PORT=3001
+HOST=127.0.0.1
+MIGRATE_ON_STARTUP=true
+```
+
+Comandos (dentro de `api/`):
+
+```sh
+bun install
+bun run db:migrate
+bun run db:seed      # opcional
+bun run dev          # API em http://127.0.0.1:3001
+```
+
+### 2) Frontend (Web)
+
+Requisitos: Node 20+, Bun.
+
+Comandos (dentro de `web/`):
+
+```sh
+bun install
+bun run dev          # abre em http://localhost:5173
+```
+
+O Vite proxy está configurado para encaminhar `/api/*` para `http://127.0.0.1:3001` (ajuste em `web/vite.config.ts` se necessário).
+
+---
+
+## 📝 Decisões & Trade-offs (Frontend)
+
+- shadcn/ui para rapidez e consistência visual.
+- Tailwind v4 com `@tailwindcss/vite` para DX simples e tokens de tema.
+- Proxy `/api` no Vite para evitar CORS em dev.
+- Cliente HTTP leve em `web/src/lib/api.ts` (sem libs extras).
+- Componente `FlowerLogo` com animação e ruído sutil no board para reforçar a identidade visual.
+
+---
+
+## 🤖 IA no Design (Prompts)
+
+Consulte `web/README.md` na seção “Prompts de IA utilizados”.
+
+---
+
+## ⚙️ Troubleshooting
+
+- Se `bun run dev` não existir no `web/package.json`, rode `bunx --bun vite`.
+- Se o board não aparecer, verifique se a API está rodando e se o proxy do Vite aponta para o host/porta corretos.
+- Problemas de IPv6: use `HOST=127.0.0.1` na API para favorecer IPv4.
