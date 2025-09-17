@@ -6,7 +6,10 @@ export type Note = {
   updatedAt: string;
 };
 
-const BASE = '/api';
+// In produção (Render), defina VITE_API_URL com a URL pública da API.
+// Em desenvolvimento, usamos o proxy do Vite para "/api".
+const ENV_BASE = (import.meta as any)?.env?.VITE_API_URL as string | undefined;
+const BASE = (ENV_BASE ? ENV_BASE.replace(/\/$/, '') : '') || '/api';
 
 async function request<T>(input: RequestInfo, init?: RequestInit): Promise<T> {
   const res = await fetch(input, {
