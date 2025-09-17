@@ -22,7 +22,7 @@
   --destructive-foreground: #ffffff;
   --border: #d2e4d9;
   --input: #b4b2a7;
-  --ring: #c96442;
+  --ring: #d2e4d9;
   --chart-1: #b05730;
   --chart-2: #9c87f5;
   --chart-3: #ded8c4;
@@ -78,7 +78,7 @@
   --destructive-foreground: #ffffff;
   --border: #3e3e38;
   --input: #52514a;
-  --ring: #d97757;
+  --ring: #d2e4d9;
   --chart-1: #b05730;
   --chart-2: #9c87f5;
   --chart-3: #1a1915;
@@ -173,4 +173,78 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Animated Flower Logo styles */
+@keyframes petalAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  30% {
+    opacity: 0.3;
+    transform: scale(0.6) rotate(-90deg);
+  }
+  70% {
+    opacity: 0.8;
+    transform: scale(1.15) rotate(10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes logoPop {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.2);
+  }
+  60% {
+    transform: scale(1.3);
+  }
+  80% {
+    transform: scale(1.3);
+  }
+  81% {
+    transform: scale(1.3);
+  }
+  to {
+    transform: scale(1.4);
+  }
+}
+
+.animate-petal-appear {
+  animation: petalAppear 0.8s ease-out forwards;
+}
+.animate-logo-pop {
+  animation: logoPop 0.4s ease-out forwards;
+}
+
+/* Stagger each petal */
+.petal:nth-child(1) {
+  animation-delay: 0s;
+}
+.petal:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.petal:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.petal:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.petal:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.petal:nth-child(6) {
+  animation-delay: 0.5s;
+}
+
+/* Subtle noise background utility */
+.bg-noise {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 10px 10px;
 }
